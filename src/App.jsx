@@ -162,15 +162,10 @@ const STEPS = ["Name", "Area", "Scenario", "Level", "Guest"];
 // ---------------------------------------------------------------------------
 
 async function callClaude(system, messages) {
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
+  const response = await fetch("/api/claude", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-6",
-      max_tokens: 1000,
-      system,
-      messages,
-    }),
+    body: JSON.stringify({ system, messages }),
   });
   if (!response.ok) throw new Error("Request failed: " + response.status);
   const data = await response.json();
@@ -179,6 +174,7 @@ async function callClaude(system, messages) {
     .join("\n")
     .trim();
   return text;
+}
 }
 
 function guestSystemPrompt({ area, scenario, level, personality }) {
