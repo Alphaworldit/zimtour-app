@@ -175,7 +175,6 @@ async function callClaude(system, messages) {
     .trim();
   return text;
 }
-}
 
 function guestSystemPrompt({ area, scenario, level, personality }) {
   return `You are role-playing as a guest inside ZimTour Skills AI, a practical training simulator used by tourism and hospitality students in Zimbabwe.
