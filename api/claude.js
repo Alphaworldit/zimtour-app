@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify({
-      model: "claude-sonnet-4-6",
+      model: "claude-sonnet-5",
       max_tokens: 1000,
       system,
       messages,
@@ -19,5 +19,11 @@ export default async function handler(req, res) {
   });
 
   const data = await response.json();
+
+  if (!response.ok) {
+    console.error("Anthropic API error:", data);
+    return res.status(response.status).json(data);
+  }
+
   res.status(200).json(data);
 }
